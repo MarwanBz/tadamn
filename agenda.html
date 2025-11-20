@@ -1,0 +1,975 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>الاجندة - منتدى تضامن للتنمية 2025</title>
+    <link rel="stylesheet" href="css/styles.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        /* Additional styles for agenda page */
+        body {
+            font-family: 'Cairo', 'Geist', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+        }
+
+        /* Header Styles (reused from login) */
+        .header {
+            position: sticky;
+            top: 0;
+            z-index: 50;
+            width: 100%;
+            background-color: rgba(15, 31, 30, 0.8);
+            backdrop-filter: blur(4px);
+            -webkit-backdrop-filter: blur(4px);
+            border-bottom: 1px solid rgba(42, 71, 70, 0.2);
+        }
+
+        .header-content {
+            max-width: 56rem;
+            margin: 0 auto;
+            padding: 1rem;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        .back-link {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            color: var(--primary);
+            text-decoration: none;
+            transition: color 0.2s ease;
+            font-size: 0.875rem;
+            font-weight: 600;
+        }
+
+        .back-link:hover {
+            color: var(--accent);
+        }
+
+        .header-logo {
+            width: 7.5rem;
+            height: 2.5rem;
+            object-fit: contain;
+        }
+
+        /* Agenda Section */
+        .agenda-section {
+            flex: 1;
+            width: 100%;
+            background-image: url('https://hebbkx1anhila5yf.public.blob.vercel-storage.com/image-iSRjjFdTaH4Q46rlrX7lhXmJSwVfCk.png');
+            background-size: cover;
+            background-position: center;
+        }
+
+        .agenda-container {
+            max-width: 64rem;
+            margin: 0 auto;
+            padding: 4rem 1rem;
+        }
+
+        /* Agenda Header */
+        .agenda-header {
+            text-align: center;
+            margin-bottom: 3rem;
+        }
+
+        .agenda-header h2 {
+            font-size: 2.25rem;
+            font-weight: 700;
+            color: var(--primary);
+            margin-bottom: 0.5rem;
+            text-wrap: balance;
+        }
+
+        .agenda-header p {
+            font-size: 1.125rem;
+            color: var(--muted-foreground);
+        }
+
+        /* Day Selector */
+        .day-selector {
+            display: flex;
+            justify-content: center;
+            gap: 1rem;
+            margin-bottom: 3rem;
+            flex-wrap: wrap;
+        }
+
+        .day-button {
+            background-color: rgba(196, 162, 79, 0.1);
+            border: 1px solid rgba(196, 162, 79, 0.3);
+            color: var(--primary);
+            padding: 0.75rem 1.5rem;
+            border-radius: 0.5rem;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            font-weight: 600;
+        }
+
+        .day-button:hover, .day-button.active {
+            background-color: var(--primary);
+            color: var(--primary-foreground);
+        }
+
+        .day-content {
+            display: none;
+        }
+
+        .day-content.active {
+            display: block;
+        }
+
+        /* Timeline */
+        .timeline {
+            display: flex;
+            flex-direction: column;
+            gap: 0;
+        }
+
+        .timeline-item {
+            position: relative;
+            display: flex;
+            gap: 1.5rem;
+            padding-bottom: 2rem;
+        }
+
+        .timeline-marker {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        .timeline-dot {
+            width: 1.25rem;
+            height: 1.25rem;
+            border-radius: 50%;
+            border: 4px solid;
+            z-index: 10;
+        }
+
+        .timeline-dot.main {
+            background-color: var(--accent);
+            border-color: var(--primary);
+        }
+
+        .timeline-dot.break {
+            background-color: var(--card);
+            border-color: var(--muted);
+        }
+
+        .timeline-line {
+            width: 0.25rem;
+            flex-grow: 1;
+        }
+
+        .timeline-line.main {
+            background: linear-gradient(to bottom, var(--accent), rgba(196, 162, 79, 0.3));
+        }
+
+        .timeline-line.break {
+            background-color: rgba(42, 71, 70, 0.3);
+        }
+
+        /* Timeline Content */
+        .timeline-content {
+            flex: 1;
+            padding-top: 0.25rem;
+        }
+
+        .timeline-card {
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            transition: all 0.3s ease;
+            border: 1px solid;
+            border-radius: 0.5rem;
+        }
+
+        .timeline-card:hover {
+            box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
+            transform: translateY(-2px);
+        }
+
+        .timeline-card.main {
+            background-color: rgba(196, 162, 79, 0.05);
+            border-color: rgba(196, 162, 79, 0.2);
+        }
+
+        .timeline-card.break {
+            background-color: rgba(58, 87, 86, 0.2);
+            border-color: rgba(42, 71, 70, 0.2);
+        }
+
+        .timeline-card-content {
+            padding: 1rem;
+            space-y: 0.5rem;
+            text-align: right;
+            direction: rtl;
+        }
+
+        .timeline-time {
+            font-size: 0.875rem;
+            font-weight: 600;
+            color: var(--accent);
+            margin-bottom: 0.5rem;
+        }
+
+        .timeline-title {
+            font-size: 1.125rem;
+            font-weight: 700;
+            color: var(--foreground);
+            margin-bottom: 0.5rem;
+        }
+
+        .timeline-speaker {
+            border-top: 1px solid rgba(42, 71, 70, 0.2);
+            padding-top: 0.75rem;
+            margin-top: 0.75rem;
+            space-y: 0.25rem;
+        }
+
+        .timeline-speaker-name {
+            font-weight: 600;
+            color: var(--primary);
+            margin-bottom: 0.25rem;
+        }
+
+        .timeline-speaker-role {
+            font-size: 0.875rem;
+            color: var(--muted-foreground);
+        }
+
+        .timeline-description {
+            font-size: 0.875rem;
+            color: var(--muted-foreground);
+            line-height: 1.6;
+        }
+
+        /* Speakers Section */
+        .speakers-section {
+            margin-top: 4rem;
+            background-color: rgba(26, 46, 45, 0.3);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            border-radius: 1rem;
+            padding: 2rem;
+        }
+
+        .speakers-header {
+            text-align: center;
+            margin-bottom: 2rem;
+        }
+
+        .speakers-header h3 {
+            font-size: 2rem;
+            font-weight: 700;
+            color: var(--primary);
+            margin-bottom: 0.5rem;
+        }
+
+        .speakers-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 1.5rem;
+        }
+
+        .speaker-card {
+            background-color: rgba(196, 162, 79, 0.1);
+            border: 1px solid rgba(196, 162, 79, 0.2);
+            backdrop-filter: blur(8px);
+            -webkit-backdrop-filter: blur(8px);
+            padding: 1.5rem;
+            border-radius: 0.5rem;
+            text-align: center;
+            transition: transform 0.2s ease;
+        }
+
+        .speaker-card:hover {
+            transform: translateY(-4px);
+        }
+
+        .speaker-avatar {
+            width: 80px;
+            height: 80px;
+            background-color: var(--primary);
+            border-radius: 50%;
+            margin: 0 auto 1rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 2rem;
+            color: var(--primary-foreground);
+            font-weight: 700;
+        }
+
+        .speaker-name {
+            font-size: 1.125rem;
+            font-weight: 600;
+            color: var(--foreground);
+            margin-bottom: 0.5rem;
+        }
+
+        .speaker-title {
+            font-size: 0.875rem;
+            color: var(--muted-foreground);
+            line-height: 1.4;
+        }
+
+        /* Event Details Grid */
+        .event-details {
+            margin-top: 3rem;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 1rem;
+            text-align: center;
+        }
+
+        .event-detail-card {
+            background-color: rgba(196, 162, 79, 0.1);
+            border: 1px solid rgba(196, 162, 79, 0.2);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            padding: 1.5rem;
+            border-radius: 0.5rem;
+            space-y: 0.5rem;
+            transition: transform 0.2s ease;
+        }
+
+        .event-detail-card:hover {
+            transform: translateY(-2px);
+        }
+
+        .event-detail-number {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: var(--accent);
+        }
+
+        .event-detail-label {
+            font-size: 0.875rem;
+            color: var(--muted-foreground);
+        }
+
+        /* Responsive Design */
+        @media (min-width: 768px) {
+            .speakers-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+
+            .agenda-header h2 {
+                font-size: 2.5rem;
+            }
+        }
+
+        @media (min-width: 1024px) {
+            .speakers-grid {
+                grid-template-columns: repeat(3, 1fr);
+            }
+        }
+
+        /* Animation Classes */
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .fade-in-up {
+            animation: fadeInUp 0.6s ease-out;
+        }
+
+        .timeline-item {
+            opacity: 0;
+            animation: fadeInUp 0.6s ease-out forwards;
+        }
+
+        .timeline-item:nth-child(1) { animation-delay: 0.1s; }
+        .timeline-item:nth-child(2) { animation-delay: 0.2s; }
+        .timeline-item:nth-child(3) { animation-delay: 0.3s; }
+        .timeline-item:nth-child(4) { animation-delay: 0.4s; }
+        .timeline-item:nth-child(5) { animation-delay: 0.5s; }
+        .timeline-item:nth-child(6) { animation-delay: 0.6s; }
+        .timeline-item:nth-child(7) { animation-delay: 0.7s; }
+    </style>
+</head>
+<body>
+    <main class="min-h-screen w-full flex flex-col bg-background">
+        <!-- Header -->
+        <header class="header">
+            <div class="header-content">
+                <a href="index.html" class="back-link">
+                    <!-- Arrow Right Icon (rotated) -->
+                    <svg width="16" height="16" fill="none" stroke="currentColor" viewBox="0 0 24 24" style="transform: rotate(180deg);" xmlns="http://www.w3.org/2000/svg">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path>
+                    </svg>
+                    <span>العودة للرئيسية</span>
+                </a>
+                <img
+                    src="https://hebbkx1anhila5yf.public.blob.vercel-storage.com/image-T8KjSBGyu0emo4BnuPlN1BPgscz7YS.png"
+                    alt="TDF 2025"
+                    class="header-logo"
+                />
+            </div>
+        </header>
+
+        <!-- Agenda Section -->
+        <section class="agenda-section">
+            <div class="agenda-container">
+                <!-- Header -->
+                <div class="agenda-header fade-in-up">
+                    <h2 class="text-4xl font-bold text-primary text-balance">
+                        الجدول الزمني للفعاليات
+                    </h2>
+                    <p class="text-muted-foreground text-lg">
+                        منتدى تضامن للتنمية 2025 | المكلا، حضرموت
+                    </p>
+                </div>
+
+                <!-- Day Selector -->
+                <div class="day-selector">
+                    <button class="day-button active" onclick="showDay('day1')">اليوم الأول</button>
+                    <button class="day-button" onclick="showDay('day2')">اليوم الثاني</button>
+                    <button class="day-button" onclick="showDay('day3')">اليوم الثالث</button>
+                </div>
+
+                <!-- Day 1 Content -->
+                <div id="day1" class="day-content active">
+                    <div class="timeline">
+                        <!-- Registration -->
+                        <div class="timeline-item">
+                            <div class="timeline-marker">
+                                <div class="timeline-dot break"></div>
+                                <div class="timeline-line break"></div>
+                            </div>
+                            <div class="timeline-content">
+                                <div class="timeline-card break">
+                                    <div class="timeline-card-content">
+                                        <div class="timeline-time">8:00 ـ 8:30</div>
+                                        <h3 class="timeline-title">تسجيل واستقبال المشاركين</h3>
+                                        <p class="timeline-description">استقبال الضيوف والمشاركين وتسجيل الحضور</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Opening -->
+                        <div class="timeline-item">
+                            <div class="timeline-marker">
+                                <div class="timeline-dot main"></div>
+                                <div class="timeline-line main"></div>
+                            </div>
+                            <div class="timeline-content">
+                                <div class="timeline-card main">
+                                    <div class="timeline-card-content">
+                                        <div class="timeline-time">8:30 - 10:00</div>
+                                        <h3 class="timeline-title">التدشين</h3>
+                                        <p class="timeline-description">
+                                            مؤسسة استدامة لتنمية القدرات<br>
+                                            مؤسسة العون للتنمية<br>
+                                            عرض فيديو ملخص المنتدى<br>
+                                            البنك الإسلامي للتنمية<br>
+                                            صندوق التضامن الإسلامي للتنمية<br>
+                                            وزارة الشؤون الاجتماعية والعمل<br>
+                                            السلطة المحلية بمحافظة حضرموت<br>
+                                            فقرة تكريمية
+                                        </p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Exhibition & Breakfast -->
+                        <div class="timeline-item">
+                            <div class="timeline-marker">
+                                <div class="timeline-dot break"></div>
+                                <div class="timeline-line break"></div>
+                            </div>
+                            <div class="timeline-content">
+                                <div class="timeline-card break">
+                                    <div class="timeline-card-content">
+                                        <div class="timeline-time">10:00 - 10:30</div>
+                                        <h3 class="timeline-title">افتتاح المعرض + استراحة الفطور</h3>
+                                        <p class="timeline-description">جولة في المعرض المقام على هامش المنتدى واستراحة شاي</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Session 1 -->
+                        <div class="timeline-item">
+                            <div class="timeline-marker">
+                                <div class="timeline-dot main"></div>
+                                <div class="timeline-line main"></div>
+                            </div>
+                            <div class="timeline-content">
+                                <div class="timeline-card main">
+                                    <div class="timeline-card-content">
+                                        <div class="timeline-time">10:45 - 11:30</div>
+                                        <h3 class="timeline-title">الجلسة العامة الأولى</h3>
+                                        <p class="timeline-description"><strong>من التشريع إلى التأثير</strong></p>
+                                        <p class="timeline-description">كيف تنتقل الوزارات من الإطار القانوني إلى التأثير المجتمعي؟</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Session 2 -->
+                        <div class="timeline-item">
+                            <div class="timeline-marker">
+                                <div class="timeline-dot main"></div>
+                                <div class="timeline-line main"></div>
+                            </div>
+                            <div class="timeline-content">
+                                <div class="timeline-card main">
+                                    <div class="timeline-card-content">
+                                        <div class="timeline-time">11:30 - 1:00</div>
+                                        <h3 class="timeline-title">الجلسة العامة الثانية</h3>
+                                        <p class="timeline-description"><strong>ديبلوماسية المسؤولية المجتمعية</strong></p>
+                                        <p class="timeline-description">"دور البعثات والسفارات في نقل التجارب الدولية في المسئولية المجتمعية"</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Lunch -->
+                        <div class="timeline-item">
+                            <div class="timeline-marker">
+                                <div class="timeline-dot break"></div>
+                                <div class="timeline-line break"></div>
+                            </div>
+                            <div class="timeline-content">
+                                <div class="timeline-card break">
+                                    <div class="timeline-card-content">
+                                        <div class="timeline-time">1:00 - 1:45</div>
+                                        <h3 class="timeline-title">صلاة واستراحة الغداء</h3>
+                                        <p class="timeline-description">استراحة غداء مع فرصة للتواصل بين المشاركين</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Session 3 -->
+                        <div class="timeline-item">
+                            <div class="timeline-marker">
+                                <div class="timeline-dot main"></div>
+                                <!-- No line for last item -->
+                            </div>
+                            <div class="timeline-content">
+                                <div class="timeline-card main">
+                                    <div class="timeline-card-content">
+                                        <div class="timeline-time">1:45 - 3:15</div>
+                                        <h3 class="timeline-title">الجلسة العامة الثالثة</h3>
+                                        <p class="timeline-description"><strong>التمويل واستدامة المنظمات</strong></p>
+                                        <p class="timeline-description">.... لماذا تفشل المنظمات في تحقيق الاستدامة المالية؟</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Day 2 Content -->
+                <div id="day2" class="day-content">
+                    <div class="timeline">
+                        <!-- Registration -->
+                        <div class="timeline-item">
+                            <div class="timeline-marker">
+                                <div class="timeline-dot break"></div>
+                                <div class="timeline-line break"></div>
+                            </div>
+                            <div class="timeline-content">
+                                <div class="timeline-card break">
+                                    <div class="timeline-card-content">
+                                        <div class="timeline-time">8:00 - 8:30</div>
+                                        <h3 class="timeline-title">استقبال المشاركين</h3>
+                                        <p class="timeline-description">استقبال الضيوف والمشاركين وتسجيل الحضور</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Session 4 -->
+                        <div class="timeline-item">
+                            <div class="timeline-marker">
+                                <div class="timeline-dot main"></div>
+                                <div class="timeline-line main"></div>
+                            </div>
+                            <div class="timeline-content">
+                                <div class="timeline-card main">
+                                    <div class="timeline-card-content">
+                                        <div class="timeline-time">8:30 - 10:00</div>
+                                        <h3 class="timeline-title">الجلسة العامة الرابعة</h3>
+                                        <p class="timeline-description"><strong>تحقيق الأهداف المشتركة</strong></p>
+                                        <p class="timeline-description">كيف يقود القطاع الخاص التغيير المجتمعي المستدام؟</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Breakfast Break -->
+                        <div class="timeline-item">
+                            <div class="timeline-marker">
+                                <div class="timeline-dot break"></div>
+                                <div class="timeline-line break"></div>
+                            </div>
+                            <div class="timeline-content">
+                                <div class="timeline-card break">
+                                    <div class="timeline-card-content">
+                                        <div class="timeline-time">10:00 ـ 10:30</div>
+                                        <h3 class="timeline-title">استراحة الفطور</h3>
+                                        <p class="timeline-description">استراحة شاي وفرصة للتواصل</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Session 5 -->
+                        <div class="timeline-item">
+                            <div class="timeline-marker">
+                                <div class="timeline-dot main"></div>
+                                <div class="timeline-line main"></div>
+                            </div>
+                            <div class="timeline-content">
+                                <div class="timeline-card main">
+                                    <div class="timeline-card-content">
+                                        <div class="timeline-time">10:30 - 12:00</div>
+                                        <h3 class="timeline-title">الجلسة العامة الخامسة</h3>
+                                        <p class="timeline-description"><strong>التحول الرقمي في المنظمات</strong></p>
+                                        <p class="timeline-description">رحلة نحو إنتاجية أعلى وكفاءة مستدامة</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Lunch -->
+                        <div class="timeline-item">
+                            <div class="timeline-marker">
+                                <div class="timeline-dot break"></div>
+                                <div class="timeline-line break"></div>
+                            </div>
+                            <div class="timeline-content">
+                                <div class="timeline-card break">
+                                    <div class="timeline-card-content">
+                                        <div class="timeline-time">12:00 - 12:40</div>
+                                        <h3 class="timeline-title">صلاة واستراحة الغداء</h3>
+                                        <p class="timeline-description">استراحة غداء مع فرصة للتواصل بين المشاركين</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Session 6 -->
+                        <div class="timeline-item">
+                            <div class="timeline-marker">
+                                <div class="timeline-dot main"></div>
+                                <!-- No line for last item -->
+                            </div>
+                            <div class="timeline-content">
+                                <div class="timeline-card main">
+                                    <div class="timeline-card-content">
+                                        <div class="timeline-time">12:40 ـ 02:10</div>
+                                        <h3 class="timeline-title">الجلسة العامة السادسة</h3>
+                                        <p class="timeline-description"><strong>استشراف المستقبل</strong></p>
+                                        <p class="timeline-description">كيف ستبدو منظمات المجتمع المدني في العقد القادم؟</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Day 3 Content -->
+                <div id="day3" class="day-content">
+                    <div class="timeline">
+                        <!-- Registration -->
+                        <div class="timeline-item">
+                            <div class="timeline-marker">
+                                <div class="timeline-dot break"></div>
+                                <div class="timeline-line break"></div>
+                            </div>
+                            <div class="timeline-content">
+                                <div class="timeline-card break">
+                                    <div class="timeline-card-content">
+                                        <div class="timeline-time">08:00 ـ 08:30</div>
+                                        <h3 class="timeline-title">استقبال المشاركين</h3>
+                                        <p class="timeline-description">استقبال الضيوف والمشاركين وتسجيل الحضور</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Knowledge Sessions (Parallel) -->
+                        <div class="timeline-item">
+                            <div class="timeline-marker">
+                                <div class="timeline-dot main"></div>
+                                <div class="timeline-line main"></div>
+                            </div>
+                            <div class="timeline-content">
+                                <div class="timeline-card main">
+                                    <div class="timeline-card-content">
+                                        <div class="timeline-time">08:30-01:00</div>
+                                        <h3 class="timeline-title">الجلسات المعرفية (توازي)</h3>
+                                        <p class="timeline-description"><strong>الجلسة المعرفية الأولى:</strong> استراتيجيات تحليل وقراءة توجهات المانحين</p>
+                                        <p class="timeline-description"><strong>الجلسة المعرفية الثانية:</strong> وسائل بناء شراكات فعالة مع القطاع الخاص</p>
+                                        <p class="timeline-description"><strong>الجلسة المعرفية الثالثة:</strong> السرد القصصي ودورة في اقناع المانحين وحشد التمويل</p>
+                                        <p class="timeline-description"><strong>الجلسة المعرفية الرابعة:</strong> أدوات واستراتيجيات الابتكار الاجتماعي وريادة الاعمال الاجتماعية</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Breakfast Break -->
+                        <div class="timeline-item">
+                            <div class="timeline-marker">
+                                <div class="timeline-dot break"></div>
+                                <div class="timeline-line break"></div>
+                            </div>
+                            <div class="timeline-content">
+                                <div class="timeline-card break">
+                                    <div class="timeline-card-content">
+                                        <div class="timeline-time">10:00 – 10:30</div>
+                                        <h3 class="timeline-title">استراحة الفطور</h3>
+                                        <p class="timeline-description">استراحة شاي وفرصة للتواصل</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Lunch -->
+                        <div class="timeline-item">
+                            <div class="timeline-marker">
+                                <div class="timeline-dot break"></div>
+                                <div class="timeline-line break"></div>
+                            </div>
+                            <div class="timeline-content">
+                                <div class="timeline-card break">
+                                    <div class="timeline-card-content">
+                                        <div class="timeline-time">01:00 – 01:40</div>
+                                        <h3 class="timeline-title">صلاة واستراحة الغداء</h3>
+                                        <p class="timeline-description">استراحة غداء مع فرصة للتواصل بين المشاركين</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Closing Session -->
+                        <div class="timeline-item">
+                            <div class="timeline-marker">
+                                <div class="timeline-dot main"></div>
+                                <div class="timeline-line main"></div>
+                            </div>
+                            <div class="timeline-content">
+                                <div class="timeline-card main">
+                                    <div class="timeline-card-content">
+                                        <div class="timeline-time">02:00 – 03:00</div>
+                                        <h3 class="timeline-title">الجلسة الختامية</h3>
+                                        <p class="timeline-description">تلخيص أهم النتائج والتوصيات ومستقبل التعاون</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Closing Ceremony -->
+                        <div class="timeline-item">
+                            <div class="timeline-marker">
+                                <div class="timeline-dot main"></div>
+                                <!-- No line for last item -->
+                            </div>
+                            <div class="timeline-content">
+                                <div class="timeline-card main">
+                                    <div class="timeline-card-content">
+                                        <div class="timeline-time">03:00 – 03:30</div>
+                                        <h3 class="timeline-title">الحفل الختامي</h3>
+                                        <p class="timeline-description"><strong>كلمة ختامية</strong></p>
+                                        <p class="timeline-description"><strong>تكريم المنظمات الفاعلة</strong></p>
+                                        <p class="timeline-description">ختام فعاليات المنتدى</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+
+
+                <!-- Venue & Contact Information -->
+                <div class="speakers-section" style="margin-top: 2rem;">
+                    <div class="speakers-header">
+                        <h3>معلومات الحدث والموقع</h3>
+                        <p class="text-muted-foreground">تفاصيل الموقع والتواصل</p>
+                    </div>
+
+                    <div class="event-details" style="margin-bottom: 2rem;">
+                        <div class="event-detail-card fade-in-up">
+                            <div class="event-detail-number">📍</div>
+                            <div class="event-detail-label">الجمهورية اليمنية – حضرموت – المكلا<br>أربعين شقة - أبراج بن محفوظ</div>
+                        </div>
+                        <div class="event-detail-card fade-in-up">
+                            <div class="event-detail-number">📞</div>
+                            <div class="event-detail-label">05323102 تحويلة 203</div>
+                        </div>
+                        <div class="event-detail-card fade-in-up">
+                            <div class="event-detail-number">✉️</div>
+                            <div class="event-detail-label">ala@alawn.org</div>
+                        </div>
+                        <div class="event-detail-card fade-in-up">
+                            <div class="event-detail-number">🆔</div>
+                            <div class="event-detail-label">مطلوب إثبات هوية للدخول</div>
+                        </div>
+                    </div>
+
+                    <div class="text-center">
+                        <p class="text-muted-foreground" style="margin-bottom: 1rem;">
+                            <strong>موقع المنتدى:</strong> أبراج بن محفوظ – القاعة الكبرى
+                        </p>
+                        <button class="btn" onclick="window.open('https://maps.google.com/?q=ابراج بن محفوظ، المكلا، حضرموت', '_blank')">
+                            الحصول على الاتجاهات إلى قاعة الحدث
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Event Details -->
+                <div class="event-details">
+                    <div class="event-detail-card fade-in-up">
+                        <div class="event-detail-number">15+</div>
+                        <div class="event-detail-label">المتحدثين</div>
+                    </div>
+                    <div class="event-detail-card fade-in-up">
+                        <div class="event-detail-number">300+</div>
+                        <div class="event-detail-label">الحضور</div>
+                    </div>
+                    <div class="event-detail-card fade-in-up">
+                        <div class="event-detail-number">15+</div>
+                        <div class="event-detail-label">الشركاء</div>
+                    </div>
+                    <div class="event-detail-card fade-in-up">
+                        <div class="event-detail-number">3</div>
+                        <div class="event-detail-label">الأيام</div>
+                    </div>
+                </div>
+
+                <!-- Venue Information -->
+                <div class="event-details" style="margin-top: 2rem;">
+                    <div class="event-detail-card fade-in-up">
+                        <div class="event-detail-number">23-25</div>
+                        <div class="event-detail-label">نوفمبر 2025</div>
+                    </div>
+                    <div class="event-detail-card fade-in-up">
+                        <div class="event-detail-number">المكلا</div>
+                        <div class="event-detail-label">حضرموت</div>
+                    </div>
+                    <div class="event-detail-card fade-in-up">
+                        <div class="event-detail-number">أبراج بن محفوظ</div>
+                        <div class="event-detail-label">موقع الحدث</div>
+                    </div>
+                    <div class="event-detail-card fade-in-up">
+                        <div class="event-detail-number">القاعة الكبرى</div>
+                        <div class="event-detail-label">قاعة المنتدى</div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <script>
+        function showDay(dayId) {
+            // Hide all day contents
+            document.querySelectorAll('.day-content').forEach(content => {
+                content.classList.remove('active');
+            });
+
+            // Remove active class from all buttons
+            document.querySelectorAll('.day-button').forEach(button => {
+                button.classList.remove('active');
+            });
+
+            // Show selected day
+            document.getElementById(dayId).classList.add('active');
+
+            // Add active class to clicked button
+            event.target.classList.add('active');
+        }
+
+        document.addEventListener('DOMContentLoaded', function() {
+            // Add smooth scroll behavior for any anchor links
+            document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+                anchor.addEventListener('click', function (e) {
+                    e.preventDefault();
+                    const target = document.querySelector(this.getAttribute('href'));
+                    if (target) {
+                        target.scrollIntoView({
+                            behavior: 'smooth'
+                        });
+                    }
+                });
+            });
+
+            // Add interactive hover effects to timeline cards
+            const timelineCards = document.querySelectorAll('.timeline-card');
+            timelineCards.forEach(card => {
+                card.addEventListener('mouseenter', function() {
+                    this.style.transform = 'translateY(-4px) scale(1.02)';
+                });
+                card.addEventListener('mouseleave', function() {
+                    this.style.transform = 'translateY(0) scale(1)';
+                });
+            });
+
+            // Add click-to-zoom functionality for timeline cards on mobile
+            if (window.innerWidth <= 768) {
+                timelineCards.forEach(card => {
+                    card.addEventListener('click', function() {
+                        this.classList.toggle('expanded');
+                    });
+                });
+            }
+
+            // Intersection Observer for fade-in animations
+            const observerOptions = {
+                threshold: 0.1,
+                rootMargin: '0px 0px -50px 0px'
+            };
+
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.style.opacity = '1';
+                    }
+                });
+            }, observerOptions);
+
+            // Observe timeline items
+            document.querySelectorAll('.timeline-item').forEach(item => {
+                observer.observe(item);
+            });
+
+            // Add print functionality
+            const printButton = document.createElement('button');
+            printButton.textContent = 'طباعة الاجندة';
+            printButton.className = 'btn';
+            printButton.style.cssText = 'position: fixed; bottom: 20px; left: 20px; z-index: 100; font-size: 0.875rem; padding: 0.5rem 1rem;';
+            printButton.addEventListener('click', () => {
+                window.print();
+            });
+            document.body.appendChild(printButton);
+
+            // Add speaker card interactions
+            const speakerCards = document.querySelectorAll('.speaker-card');
+            speakerCards.forEach(card => {
+                card.addEventListener('click', function() {
+                    // Can expand to show more details about speaker
+                    console.log('Speaker card clicked');
+                });
+            });
+        });
+    </script>
+</body>
+</html>
