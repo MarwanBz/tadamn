@@ -8,53 +8,127 @@
     <link rel="stylesheet" href="css/styles.css">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@400;500;700;800;900&display=swap"
+        rel="stylesheet">
     <style>
         /* Additional styles for agenda page */
         body {
-            font-family: 'Cairo', 'Geist', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+            font-family: 'Tajawal', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
         }
 
-        /* Header Styles (reused from login) */
-        .header {
+        /* Page Header (consistent with other pages) */
+        .page-header {
             position: sticky;
             top: 0;
-            z-index: 50;
-            width: 100%;
-            background-color: rgba(15, 31, 30, 0.8);
-            backdrop-filter: blur(4px);
-            -webkit-backdrop-filter: blur(4px);
-            border-bottom: 1px solid rgba(42, 71, 70, 0.2);
+            z-index: 100;
+            background: rgba(15, 31, 30, 0.95);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            border-bottom: 1px solid rgba(196, 162, 79, 0.1);
+            padding: 1.5rem 0;
+            transition: all 0.3s ease;
         }
 
         .header-content {
-            max-width: 56rem;
+            max-width: 1400px;
             margin: 0 auto;
-            padding: 1rem;
+            padding: 0 2rem;
             display: flex;
-            align-items: center;
             justify-content: space-between;
+            align-items: center;
         }
 
-        .back-link {
-            display: flex;
+        .back-button {
+            display: inline-flex;
             align-items: center;
             gap: 0.5rem;
             color: var(--primary);
             text-decoration: none;
-            transition: color 0.2s ease;
-            font-size: 0.875rem;
             font-weight: 600;
+            font-size: 0.95rem;
+            padding: 0.75rem 1.25rem;
+            border-radius: 0.5rem;
+            background: rgba(196, 162, 79, 0.1);
+            border: 1px solid rgba(196, 162, 79, 0.2);
+            transition: all 0.3s ease;
         }
 
-        .back-link:hover {
-            color: var(--accent);
+        .back-button:hover {
+            background: rgba(196, 162, 79, 0.15);
+            transform: translateX(4px);
+            box-shadow: 0 4px 12px rgba(196, 162, 79, 0.2);
         }
 
-        .header-logo {
-            width: 7.5rem;
-            height: 2.5rem;
+        .back-button .icon {
+            width: 1.25rem;
+            height: 1.25rem;
+        }
+
+        .header-logo img {
+            height: 3rem;
+            width: auto;
             object-fit: contain;
+        }
+
+        /* Mobile responsive header */
+        @media (max-width: 768px) {
+            .page-header {
+                padding: 1rem 0;
+            }
+
+            .header-content {
+                flex-direction: row;
+                justify-content: space-between;
+                align-items: center;
+                gap: 1rem;
+                padding: 0 1rem;
+            }
+
+            .back-button {
+                font-size: 0.875rem;
+                padding: 0.625rem 1rem;
+                flex-shrink: 0;
+            }
+
+            .back-button .icon {
+                width: 1rem;
+                height: 1rem;
+            }
+
+            .header-logo {
+                flex-shrink: 0;
+            }
+
+            .header-logo img {
+                height: 2.5rem;
+                max-width: 120px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .page-header {
+                padding: 0.75rem 0;
+            }
+
+            .header-content {
+                padding: 0 0.75rem;
+                gap: 0.5rem;
+            }
+
+            .back-button {
+                font-size: 0.8125rem;
+                padding: 0.5rem 0.875rem;
+            }
+
+            .back-button span {
+                display: none;
+                /* Hide text on very small screens, show only icon */
+            }
+
+            .header-logo img {
+                height: 2rem;
+                max-width: 100px;
+            }
         }
 
         /* Agenda Section */
@@ -427,18 +501,18 @@
 <body>
     <main class="min-h-screen w-full flex flex-col bg-background">
         <!-- Header -->
-        <header class="header">
+        <header class="page-header">
             <div class="header-content">
-                <a href="index.html" class="back-link">
-                    <!-- Arrow Right Icon (rotated) -->
-                    <svg width="16" height="16" fill="none" stroke="currentColor" viewBox="0 0 24 24"
-                        style="transform: rotate(180deg);" xmlns="http://www.w3.org/2000/svg">
+                <a href="index.html" class="back-button">
+                    <svg class="icon" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path>
                     </svg>
                     <span>العودة للرئيسية</span>
                 </a>
-                <img src="https://hebbkx1anhila5yf.public.blob.vercel-storage.com/image-T8KjSBGyu0emo4BnuPlN1BPgscz7YS.png"
-                    alt="TDF 2025" class="header-logo" />
+                <div class="header-logo">
+                    <img src="https://hebbkx1anhila5yf.public.blob.vercel-storage.com/image-T8KjSBGyu0emo4BnuPlN1BPgscz7YS.png"
+                        alt="TDF 2025 Logo">
+                </div>
             </div>
         </header>
 
