@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="ar" dir="rtl">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -110,7 +111,8 @@
             font-weight: 600;
         }
 
-        .day-button:hover, .day-button.active {
+        .day-button:hover,
+        .day-button.active {
             background-color: var(--primary);
             color: var(--primary-foreground);
         }
@@ -376,6 +378,7 @@
                 opacity: 0;
                 transform: translateY(20px);
             }
+
             to {
                 opacity: 1;
                 transform: translateY(0);
@@ -391,15 +394,36 @@
             animation: fadeInUp 0.6s ease-out forwards;
         }
 
-        .timeline-item:nth-child(1) { animation-delay: 0.1s; }
-        .timeline-item:nth-child(2) { animation-delay: 0.2s; }
-        .timeline-item:nth-child(3) { animation-delay: 0.3s; }
-        .timeline-item:nth-child(4) { animation-delay: 0.4s; }
-        .timeline-item:nth-child(5) { animation-delay: 0.5s; }
-        .timeline-item:nth-child(6) { animation-delay: 0.6s; }
-        .timeline-item:nth-child(7) { animation-delay: 0.7s; }
+        .timeline-item:nth-child(1) {
+            animation-delay: 0.1s;
+        }
+
+        .timeline-item:nth-child(2) {
+            animation-delay: 0.2s;
+        }
+
+        .timeline-item:nth-child(3) {
+            animation-delay: 0.3s;
+        }
+
+        .timeline-item:nth-child(4) {
+            animation-delay: 0.4s;
+        }
+
+        .timeline-item:nth-child(5) {
+            animation-delay: 0.5s;
+        }
+
+        .timeline-item:nth-child(6) {
+            animation-delay: 0.6s;
+        }
+
+        .timeline-item:nth-child(7) {
+            animation-delay: 0.7s;
+        }
     </style>
 </head>
+
 <body>
     <main class="min-h-screen w-full flex flex-col bg-background">
         <!-- Header -->
@@ -407,16 +431,14 @@
             <div class="header-content">
                 <a href="index.html" class="back-link">
                     <!-- Arrow Right Icon (rotated) -->
-                    <svg width="16" height="16" fill="none" stroke="currentColor" viewBox="0 0 24 24" style="transform: rotate(180deg);" xmlns="http://www.w3.org/2000/svg">
+                    <svg width="16" height="16" fill="none" stroke="currentColor" viewBox="0 0 24 24"
+                        style="transform: rotate(180deg);" xmlns="http://www.w3.org/2000/svg">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path>
                     </svg>
                     <span>العودة للرئيسية</span>
                 </a>
-                <img
-                    src="https://hebbkx1anhila5yf.public.blob.vercel-storage.com/image-T8KjSBGyu0emo4BnuPlN1BPgscz7YS.png"
-                    alt="TDF 2025"
-                    class="header-logo"
-                />
+                <img src="https://hebbkx1anhila5yf.public.blob.vercel-storage.com/image-T8KjSBGyu0emo4BnuPlN1BPgscz7YS.png"
+                    alt="TDF 2025" class="header-logo" />
             </div>
         </header>
 
@@ -497,7 +519,8 @@
                                     <div class="timeline-card-content">
                                         <div class="timeline-time">10:00 - 10:30</div>
                                         <h3 class="timeline-title">افتتاح المعرض + استراحة الفطور</h3>
-                                        <p class="timeline-description">جولة في المعرض المقام على هامش المنتدى واستراحة شاي</p>
+                                        <p class="timeline-description">جولة في المعرض المقام على هامش المنتدى واستراحة
+                                            شاي</p>
                                     </div>
                                 </div>
                             </div>
@@ -515,7 +538,8 @@
                                         <div class="timeline-time">10:45 - 11:30</div>
                                         <h3 class="timeline-title">الجلسة العامة الأولى</h3>
                                         <p class="timeline-description"><strong>من التشريع إلى التأثير</strong></p>
-                                        <p class="timeline-description">كيف تنتقل الوزارات من الإطار القانوني إلى التأثير المجتمعي؟</p>
+                                        <p class="timeline-description">كيف تنتقل الوزارات من الإطار القانوني إلى
+                                            التأثير المجتمعي؟</p>
                                     </div>
                                 </div>
                             </div>
@@ -532,8 +556,10 @@
                                     <div class="timeline-card-content">
                                         <div class="timeline-time">11:30 - 1:00</div>
                                         <h3 class="timeline-title">الجلسة العامة الثانية</h3>
-                                        <p class="timeline-description"><strong>ديبلوماسية المسؤولية المجتمعية</strong></p>
-                                        <p class="timeline-description">"دور البعثات والسفارات في نقل التجارب الدولية في المسئولية المجتمعية"</p>
+                                        <p class="timeline-description"><strong>ديبلوماسية المسؤولية المجتمعية</strong>
+                                        </p>
+                                        <p class="timeline-description">"دور البعثات والسفارات في نقل التجارب الدولية في
+                                            المسئولية المجتمعية"</p>
                                     </div>
                                 </div>
                             </div>
@@ -568,7 +594,8 @@
                                         <div class="timeline-time">1:45 - 3:15</div>
                                         <h3 class="timeline-title">الجلسة العامة الثالثة</h3>
                                         <p class="timeline-description"><strong>التمويل واستدامة المنظمات</strong></p>
-                                        <p class="timeline-description">.... لماذا تفشل المنظمات في تحقيق الاستدامة المالية؟</p>
+                                        <p class="timeline-description">.... لماذا تفشل المنظمات في تحقيق الاستدامة
+                                            المالية؟</p>
                                     </div>
                                 </div>
                             </div>
@@ -608,7 +635,8 @@
                                         <div class="timeline-time">8:30 - 10:00</div>
                                         <h3 class="timeline-title">الجلسة العامة الرابعة</h3>
                                         <p class="timeline-description"><strong>تحقيق الأهداف المشتركة</strong></p>
-                                        <p class="timeline-description">كيف يقود القطاع الخاص التغيير المجتمعي المستدام؟</p>
+                                        <p class="timeline-description">كيف يقود القطاع الخاص التغيير المجتمعي المستدام؟
+                                        </p>
                                     </div>
                                 </div>
                             </div>
@@ -678,7 +706,8 @@
                                         <div class="timeline-time">12:40 ـ 02:10</div>
                                         <h3 class="timeline-title">الجلسة العامة السادسة</h3>
                                         <p class="timeline-description"><strong>استشراف المستقبل</strong></p>
-                                        <p class="timeline-description">كيف ستبدو منظمات المجتمع المدني في العقد القادم؟</p>
+                                        <p class="timeline-description">كيف ستبدو منظمات المجتمع المدني في العقد القادم؟
+                                        </p>
                                     </div>
                                 </div>
                             </div>
@@ -717,10 +746,14 @@
                                     <div class="timeline-card-content">
                                         <div class="timeline-time">08:30-01:00</div>
                                         <h3 class="timeline-title">الجلسات المعرفية (توازي)</h3>
-                                        <p class="timeline-description"><strong>الجلسة المعرفية الأولى:</strong> استراتيجيات تحليل وقراءة توجهات المانحين</p>
-                                        <p class="timeline-description"><strong>الجلسة المعرفية الثانية:</strong> وسائل بناء شراكات فعالة مع القطاع الخاص</p>
-                                        <p class="timeline-description"><strong>الجلسة المعرفية الثالثة:</strong> السرد القصصي ودورة في اقناع المانحين وحشد التمويل</p>
-                                        <p class="timeline-description"><strong>الجلسة المعرفية الرابعة:</strong> أدوات واستراتيجيات الابتكار الاجتماعي وريادة الاعمال الاجتماعية</p>
+                                        <p class="timeline-description"><strong>الجلسة المعرفية الأولى:</strong>
+                                            استراتيجيات تحليل وقراءة توجهات المانحين</p>
+                                        <p class="timeline-description"><strong>الجلسة المعرفية الثانية:</strong> وسائل
+                                            بناء شراكات فعالة مع القطاع الخاص</p>
+                                        <p class="timeline-description"><strong>الجلسة المعرفية الثالثة:</strong> السرد
+                                            القصصي ودورة في اقناع المانحين وحشد التمويل</p>
+                                        <p class="timeline-description"><strong>الجلسة المعرفية الرابعة:</strong> أدوات
+                                            واستراتيجيات الابتكار الاجتماعي وريادة الاعمال الاجتماعية</p>
                                     </div>
                                 </div>
                             </div>
@@ -810,7 +843,8 @@
                     <div class="event-details" style="margin-bottom: 2rem;">
                         <div class="event-detail-card fade-in-up">
                             <div class="event-detail-number">📍</div>
-                            <div class="event-detail-label">الجمهورية اليمنية – حضرموت – المكلا<br>أربعين شقة - أبراج بن محفوظ</div>
+                            <div class="event-detail-label">الجمهورية اليمنية – حضرموت – المكلا<br>أربعين شقة - أبراج بن
+                                محفوظ</div>
                         </div>
                         <div class="event-detail-card fade-in-up">
                             <div class="event-detail-number">📞</div>
@@ -830,7 +864,8 @@
                         <p class="text-muted-foreground" style="margin-bottom: 1rem;">
                             <strong>موقع المنتدى:</strong> أبراج بن محفوظ – القاعة الكبرى
                         </p>
-                        <button class="btn" onclick="window.open('https://maps.google.com/?q=ابراج بن محفوظ، المكلا، حضرموت', '_blank')">
+                        <button class="btn"
+                            onclick="window.open('https://maps.google.com/?q=ابراج بن محفوظ، المكلا، حضرموت', '_blank')">
                             الحصول على الاتجاهات إلى قاعة الحدث
                         </button>
                     </div>
@@ -898,7 +933,7 @@
             event.target.classList.add('active');
         }
 
-        document.addEventListener('DOMContentLoaded', function() {
+        document.addEventListener('DOMContentLoaded', function () {
             // Add smooth scroll behavior for any anchor links
             document.querySelectorAll('a[href^="#"]').forEach(anchor => {
                 anchor.addEventListener('click', function (e) {
@@ -915,10 +950,10 @@
             // Add interactive hover effects to timeline cards
             const timelineCards = document.querySelectorAll('.timeline-card');
             timelineCards.forEach(card => {
-                card.addEventListener('mouseenter', function() {
+                card.addEventListener('mouseenter', function () {
                     this.style.transform = 'translateY(-4px) scale(1.02)';
                 });
-                card.addEventListener('mouseleave', function() {
+                card.addEventListener('mouseleave', function () {
                     this.style.transform = 'translateY(0) scale(1)';
                 });
             });
@@ -926,7 +961,7 @@
             // Add click-to-zoom functionality for timeline cards on mobile
             if (window.innerWidth <= 768) {
                 timelineCards.forEach(card => {
-                    card.addEventListener('click', function() {
+                    card.addEventListener('click', function () {
                         this.classList.toggle('expanded');
                     });
                 });
@@ -951,20 +986,10 @@
                 observer.observe(item);
             });
 
-            // Add print functionality
-            const printButton = document.createElement('button');
-            printButton.textContent = 'طباعة الاجندة';
-            printButton.className = 'btn';
-            printButton.style.cssText = 'position: fixed; bottom: 20px; left: 20px; z-index: 100; font-size: 0.875rem; padding: 0.5rem 1rem;';
-            printButton.addEventListener('click', () => {
-                window.print();
-            });
-            document.body.appendChild(printButton);
-
             // Add speaker card interactions
             const speakerCards = document.querySelectorAll('.speaker-card');
             speakerCards.forEach(card => {
-                card.addEventListener('click', function() {
+                card.addEventListener('click', function () {
                     // Can expand to show more details about speaker
                     console.log('Speaker card clicked');
                 });
@@ -972,4 +997,5 @@
         });
     </script>
 </body>
+
 </html>
