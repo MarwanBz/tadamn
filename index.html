@@ -43,13 +43,7 @@
 تمكين - شراكة - إستدامة                    </p>
                 </div>
 
-                <!-- CTA Button -->
-                <div class="hero-cta">
-                    <a href="login.html" class="btn">
-                        ابدأ الآن
-                        <span>&gt;</span>
-                    </a>
-                </div>
+
 
                 <!-- Navigation Cards -->
                 <div class="hero-nav-cards">
@@ -91,9 +85,80 @@
         </section>
     </main>
 
+    <!-- Floating CTA Button -->
+    <a href="login.html" class="floating-cta" id="floatingCta">
+        <span>فحص الانترنت</span>
+        <svg width="14" height="14" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"></path>
+        </svg>
+    </a>
+
+    <style>
+        .floating-cta {
+            position: fixed;
+            bottom: 2rem;
+            left: 2rem;
+            background-color: var(--primary);
+            color: var(--primary-foreground);
+            padding: 0.4rem 1rem;
+            border-radius: 9999px;
+            font-size: 0.75rem;
+            font-weight: 500;
+            text-decoration: none;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+            z-index: 100;
+            transform: translateY(20px);
+            opacity: 0;
+            pointer-events: none;
+            transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .floating-cta.visible {
+            transform: translateY(0);
+            opacity: 1;
+            pointer-events: all;
+        }
+
+        .floating-cta:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 16px rgba(0, 0, 0, 0.4);
+            background-color: var(--accent);
+        }
+
+        @media (max-width: 768px) {
+            .floating-cta {
+                bottom: 1.5rem;
+                left: 50%;
+                transform: translateX(-50%) translateY(20px);
+                width: auto;
+                white-space: nowrap;
+            }
+            
+            .floating-cta.visible {
+                transform: translateX(-50%) translateY(0);
+            }
+            
+            .floating-cta:hover {
+                transform: translateX(-50%) translateY(-2px);
+            }
+        }
+    </style>
+
     <script>
         // Add any interactive functionality here
         document.addEventListener('DOMContentLoaded', function() {
+            // Show floating CTA after 3 seconds
+            setTimeout(() => {
+                const floatingCta = document.getElementById('floatingCta');
+                if (floatingCta) {
+                    floatingCta.classList.add('visible');
+                }
+            }, 3000);
+
             // Add smooth scroll behavior
             document.querySelectorAll('a[href^="#"]').forEach(anchor => {
                 anchor.addEventListener('click', function (e) {
